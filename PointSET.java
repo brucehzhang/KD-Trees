@@ -65,12 +65,15 @@ public class PointSET {
     public Point2D nearest(Point2D p) {
         if (p == null) {
             throw new IllegalArgumentException("Argument is null");
+        } else if (pointSet.isEmpty()) {
+            return null;
         }
-        double nearestDistance = p.distanceTo(pointSet.first());
+        double nearestDistance = p.distanceSquaredTo(pointSet.first());
         Point2D nearestPoint = pointSet.first();
         for (Point2D a : pointSet) {
-            if (p.distanceTo(a) < nearestDistance) {
+            if (p.distanceSquaredTo(a) < nearestDistance) {
                 nearestPoint = a;
+                nearestDistance = p.distanceSquaredTo(a);
             }
         }
         return nearestPoint;
